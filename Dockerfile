@@ -1,8 +1,15 @@
-FROM php:7.2-apache
+FROM php:7.1-apache
 
-RUN apt-get update \
-&& apt-get install -y libpq-dev gettext \
-&& docker-php-ext-install gettext pdo pdo_pgsql
+RUN apt-get update && apt-get install -y \
+gettext \
+libmcrypt-dev \
+libpq-dev \
+&& docker-php-ext-install \
+gettext \
+mcrypt \
+pdo \
+pdo_pgsql \
+&& true
 
 COPY src/ /var/www/html
 COPY poweradmin-entrypoint /usr/local/bin/
