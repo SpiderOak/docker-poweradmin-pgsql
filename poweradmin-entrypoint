@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+cat <<EOF > /var/www/html/inc/config.inc.php
+<?php
+
+\$db_host        = '${DB_HOST:?}';
+\$db_user        = '${DB_USER:?}';
+\$db_pass        = '${DB_PASS:?}';
+\$db_name        = '${DB_NAME:?}';
+\$db_type        = 'pgsql';
+\$db_layer       = 'PDO';
+
+\$session_key        = '${SESSION_KEY:?}';
+
+\$iface_lang     = 'en_EN';
+
+\$dns_hostmaster     = '${DNS_HOSTMASTER:?}';
+\$dns_ns1        = '${DNS_NS1:?}';
+\$dns_ns2        = '${DNS_NS2:?}';
+EOF
+
+exec docker-php-entrypoint "$@"
