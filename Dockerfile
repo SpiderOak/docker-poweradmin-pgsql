@@ -11,7 +11,7 @@ pdo \
 pdo_pgsql \
 && true
 
-COPY src/ /var/www/html
+COPY src/ /usr/share/pdns
 COPY poweradmin-entrypoint /usr/local/bin/
 
 ENTRYPOINT ["poweradmin-entrypoint"]

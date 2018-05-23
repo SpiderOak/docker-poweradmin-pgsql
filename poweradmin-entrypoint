@@ -1,7 +1,17 @@
 #!/bin/sh
 set -e
 
-cat <<EOF > /var/www/html/inc/config.inc.php
+if [ "$BASE_PATH" ]; then
+    d="/var/www/html/`dirname $BASE_PATH`"
+    n="`basename $BASE_PATH`"
+    [ ! -e "$d" ] && mkdir -p "$d"
+    ln -s /usr/share/pdns "$d/$n"
+else
+    rm -rf /var/www/html
+    ln -s /usr/share/pdns /var/www/html
+fi
+
+cat <<EOF > /usr/share/pdns/inc/config.inc.php
 <?php
 
 \$db_host        = '${DB_HOST:?}';
